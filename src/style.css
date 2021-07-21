@@ -1,3 +1,11 @@
+.darktheme{
+  background-color: #202020;
+}
+
+.lighttheme{
+  background-color: #ffffff;
+}
+
 .container {
   width: 75%;
   text-align: center;

@@ -5,7 +5,8 @@ import './style.css';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-
+    this.changeTheme = this.changeTheme.bind(this);
+    this.darktheme = false;
     this.getCountryData = this.getCountryData.bind(this);
   }
   state = {
@@ -58,18 +59,32 @@ export default class App extends React.Component {
     }
   }
 
-  //function to choose country in the list
   renderCountryOptions() {
-    // return this.state.countries.map((name, iso2) => {
     return this.state.countries.map((name, i) => {
       return <option key={name}>{name}</option>;
     });
   }
 
+  changeTheme() {
+    if (this.darktheme == false) {
+      document.body.style = 'background: #202020;';
+      document.getElementById('heading').style.color = 'white';
+      document.getElementById('themeicon').style.color = 'white';
+      this.darktheme = true;
+    } else {
+      document.body.style = 'background: #ffffff;';
+      document.getElementById('heading').style.color = 'black';
+      document.getElementById('themeicon').style.color = 'black';
+      this.darktheme = false;
+    }
+  }
+
   render() {
     return (
       <div className="container">
-        <h1>COVID19 Update</h1>
+        <h2 id="heading">COVID19 Update</h2>
+
+        <i id="themeicon" className="fas fa-moon" onClick={this.changeTheme} />
 
         <select
           className="form-select form-select-sm"
@@ -95,7 +110,7 @@ export default class App extends React.Component {
 
           <div className="card text-white bg-danger mb-3">
             <div className="card-body">
-              <h5 className="card-title">Death:</h5>
+              <h5 className="card-title">Death</h5>
               <p className="card-text">{this.state.deaths}</p>
             </div>
           </div>
