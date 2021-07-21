@@ -5,10 +5,10 @@ import './style.css';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.changeTheme = this.changeTheme.bind(this);
     this.darktheme = false;
     this.getCountryData = this.getCountryData.bind(this);
   }
+
   state = {
     confirmed: 0,
     recovered: 0,
@@ -65,7 +65,7 @@ export default class App extends React.Component {
     });
   }
 
-  changeTheme() {
+  changeTheme = () => {
     if (this.darktheme == false) {
       document.body.style = 'background: #202020;';
       document.getElementById('heading').style.color = 'white';
@@ -77,7 +77,7 @@ export default class App extends React.Component {
       document.getElementById('themeicon').style.color = 'black';
       this.darktheme = false;
     }
-  }
+  };
 
   render() {
     return (
