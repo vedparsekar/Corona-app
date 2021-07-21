@@ -1,6 +1,6 @@
-import React from "react";
-import Axios from "axios";
-import "./style.css";
+import React from 'react';
+import Axios from 'axios';
+import './style.css';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -12,7 +12,7 @@ export default class App extends React.Component {
     confirmed: 0,
     recovered: 0,
     deaths: 0,
-    countries: [],
+    countries: []
   };
 
   componentDidMount() {
@@ -20,9 +20,9 @@ export default class App extends React.Component {
   }
 
   async getData() {
-    const resApi = await Axios.get("https://covid19.mathdro.id/api"); //https://github.com/mathdroid/covid-19-api => Thanks to mathdroid for providing the API.
+    const resApi = await Axios.get('https://covid19.mathdro.id/api');
     const resCountries = await Axios.get(
-      "https://covid19.mathdro.id/api/countries"
+      'https://covid19.mathdro.id/api/countries'
     );
     const countries = [];
     for (var i = 0; i < resCountries.data.countries.length; i++) {
@@ -33,7 +33,7 @@ export default class App extends React.Component {
       confirmed: resApi.data.confirmed.value,
       recovered: resApi.data.recovered.value,
       deaths: resApi.data.deaths.value,
-      countries,
+      countries
     });
   }
 
@@ -46,14 +46,14 @@ export default class App extends React.Component {
       this.setState({
         confirmed: res.data.confirmed.value,
         recovered: res.data.recovered.value,
-        deaths: res.data.deaths.value,
+        deaths: res.data.deaths.value
       });
     } catch (err) {
       if (err.response.status === 404)
         this.setState({
-          confirmed: "No data available",
-          recovered: "No data available",
-          deaths: "No data available",
+          confirmed: 'No data available',
+          recovered: 'No data available',
+          deaths: 'No data available'
         });
     }
   }
@@ -71,22 +71,33 @@ export default class App extends React.Component {
       <div className="container">
         <h1>COVID19 Update</h1>
 
-        <select className="dropDown" onChange={this.getCountryData}>
+        <select
+          className="form-select form-select-sm"
+          onChange={this.getCountryData}
+        >
           {this.renderCountryOptions()}
         </select>
 
-        <div className="flex">
-          <div className="box confirmed">
-            <h3 className="heading">Confirmed cases: </h3>
-            <h4 className="num">{this.state.confirmed}</h4>
+        <div className="container">
+          <div className="card text-white bg-primary mb-3">
+            <div className="card-body">
+              <h5 className="card-title">Confirmed</h5>
+              <p className="card-text">{this.state.confirmed}</p>
+            </div>
           </div>
-          <div className="box recovered">
-            <h3 className="heading">Recovered cases: </h3>
-            <h4 className="num">{this.state.recovered}</h4>
+
+          <div className="card text-white bg-success mb-3">
+            <div className="card-body">
+              <h5 className="card-title">Recovered</h5>
+              <p className="card-text">{this.state.recovered}</p>
+            </div>
           </div>
-          <div className="box deaths">
-            <h3 className="heading">In another world cases: </h3>
-            <h4 className="num">{this.state.deaths}</h4>
+
+          <div className="card text-white bg-danger mb-3">
+            <div className="card-body">
+              <h5 className="card-title">Death:</h5>
+              <p className="card-text">{this.state.deaths}</p>
+            </div>
           </div>
         </div>
       </div>
